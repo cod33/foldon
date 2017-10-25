@@ -15,7 +15,7 @@ BAC = md.Universe('/home/cod33/foldon/templates/reference/BAC.pdb')
 CAB = md.Universe('/home/cod33/foldon/templates/reference/CAB.pdb')
 CBA = md.Universe('/home/cod33/foldon/templates/reference/CBA.pdb')
 
-epsilons = ['0.20','0.21','0.22','0.23','0.24','0.25']]
+epsilons = ['0.20','0.21','0.22','0.23','0.24','0.25']
 state = ['bound', 'unbound']
 file_coords = ['MOVIE/movie.000000000.pdb','testout.xtc']
 

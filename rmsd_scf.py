@@ -8,26 +8,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-ABC = md.Universe('/home/cod33/foldon/templates/references/1rfo_beads.pdb')
-ACB = md.Universe('/home/cod33/foldon/templates/references/ACB.pdb')
-BCA = md.Universe('/home/cod33/foldon/templates/references/BCA.pdb')
-BAC = md.Universe('/home/cod33/foldon/templates/references/BAC.pdb')
-CAB = md.Universe('/home/cod33/foldon/templates/references/CAB.pdb')
-CBA = md.Universe('/home/cod33/foldon/templates/references/CBA.pdb')
-
-coords = md.Universe('movie.000000000.pdb','testout.xtc')
-perms = [ABC,ACB,BCA,BAC,CAB,CBA]
+file_coords = ['MOVIE/movie.000000000.pdb','testout.xtc']
 todos= []
-for perm in perms:
-    rmsd = rms.RMSD(coords,perm)
-    rmsd_A = rms.RMSD(coords,perm,select='bynum 1-70')
-    rmsd_B = rms.RMSD(coords,perm,select='bynum 71-140')
-    rmsd_C = rms.RMSD(coords,perm,select='bynum 141-210')
-    for R in [rmsd,rmsd_A,rmsd_B,rmsd_C]:
-        R.run()
-    full_arr = np.vstack((rmsd.rmsd[:,1],rmsd.rmsd[:,2],rmsd_A.rmsd[:,2],rmsd_B.rmsd[:,2],rmsd_C.rmsd[:,2]))
-    todos.append(full_arr)
-    np.save('todos',todos)
+ref = md.Universe(os.path.join(file_coords[0]))
+coords = md.Universe(os.path.join(file_coords[0]),os.path.join(file_coords[1]))
+rmsd = rms.RMSD(coords,ref)
+rmsd_A = rms.RMSD(coords,ref,select='bynum 1-70')
+rmsd_B = rms.RMSD(coords,ref,select='bynum 91-161')
+rmsd_C = rms.RMSD(coords,ref,select='bynum 182-252')
+for R in [rmsd,rmsd_A,rmsd_B,rmsd_C]:
+    R.run()
+full_arr = np.vstack((rmsd.rmsd[:,1],rmsd.rmsd[:,2],rmsd_A.rmsd[:,2],rmsd_B.rmsd[:,2],rmsd_C.rmsd[:,2]))
+todos.append(full_arr)
+todoss = np.array(todos)
+np.save('todos.npy',todoss)
 #ok so todos has shape (96,5,10001). it goes bound, unbound by increments of six. 
 #bound_25 = np.min(todos[0:6], axis=0)
 #unbound_25 = np.min(todos[6:12], axis=0)
