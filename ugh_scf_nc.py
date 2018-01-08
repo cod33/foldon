@@ -43,7 +43,7 @@ def load_reference_map(filepath):
 
 def count(compare_arr):
     '''
-    Counts the number of native contacts within chain BC.
+    Counts the number of native contacts.
     '''
     return compare_arr[:,:].sum()
 

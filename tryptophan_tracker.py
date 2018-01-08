@@ -59,36 +59,16 @@ def count_nc_chain_c(compare_arr):
     '''
     return compare_arr[160].sum()
 
-#def count_nc_chain_ab(compare_arr):
-#    '''
-#    Counts the number of native contacts within chain AB.
-#    '''
-#    return compare_arr[20,90].sum()
-#
-#def count_nc_chain_ac(compare_arr):
-#    '''
-#    Counts the number of native contacts within chain AC.
-#    '''
-#    return compare_arr[20,160].sum()
-#
-#def count_nc_chain_bc(compare_arr):
-#    '''
-#    Counts the number of native contacts within chain BC.
-#    '''
-#    return compare_arr[90,160].sum()
-#
 reference_map = load_reference_map('system.go.parameters')
 u = md.Universe('MOVIE/movie.000000000.pdb', 'testout.xtc')
 print(reference_map)
-nc_arr = np.empty((len(u.trajectory),6), dtype=float)
+nc_arr = np.empty((len(u.trajectory),3), dtype=float)
 for i, ts in enumerate(u.trajectory):
     dist_arr = dist.distance_array(u.atoms.positions,u.atoms.positions)
-    compare_arr = dist_arr < reference_map*1.2
+#    compare_arr = dist_arr < reference_map*1.2
+    compare_arr = dist_arr < 5.5
     nc_arr[i,0]  = count_nc_chain_a(compare_arr)
     nc_arr[i,1]  = count_nc_chain_b(compare_arr)
     nc_arr[i,2]  = count_nc_chain_c(compare_arr)
-#    nc_arr[i,3]  = count_nc_chain_ab(compare_arr)
-#    nc_arr[i,4]  = count_nc_chain_ac(compare_arr)
-#    nc_arr[i,5]  = count_nc_chain_bc(compare_arr)
 print(nc_arr.shape)
 np.save('nc_arr_tryp', nc_arr)

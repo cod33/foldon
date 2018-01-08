@@ -19,9 +19,10 @@ rmsd_C = rms.RMSD(coords,ref,select='bynum 182-252')
 for R in [rmsd,rmsd_A,rmsd_B,rmsd_C]:
     R.run()
 full_arr = np.vstack((rmsd.rmsd[:,1],rmsd.rmsd[:,2],rmsd_A.rmsd[:,2],rmsd_B.rmsd[:,2],rmsd_C.rmsd[:,2]))
-todos.append(full_arr)
-todoss = np.array(todos)
-np.save('todos.npy',todoss)
+print(full_arr.shape)
+#todos.append(full_arr)
+#todoss = np.array(todos)
+np.save('todos.npy',full_arr)
 #ok so todos has shape (96,5,10001). it goes bound, unbound by increments of six. 
 #bound_25 = np.min(todos[0:6], axis=0)
 #unbound_25 = np.min(todos[6:12], axis=0)
