@@ -1,15 +1,11 @@
 # foldon
 Scripts specific to the foldon project that you seriously freaking need to keep track of. 
 
-'''
 addloop_renum.py
-adds a loop defined by 'loop.pdb' to an existing pdb file. All atom indices are hard-coded for 1rfo.pdb
-'''
+    adds a loop defined by 'loop.pdb' to an existing pdb file. All atom indices are hard-coded for 1rfo.pdb
 
-'''
 alex rmsd finder
-copied from Alex DeGrage (ajd98)
-'''
+    copied from Alex DeGrage (ajd98)
 
 conc.py
     calculates the concentration of your (currently dimer) in a 125A sphere.
