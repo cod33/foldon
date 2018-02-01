@@ -28,15 +28,18 @@ def _format_line(atom, atomid, atomtype, residue, resnum, x,y,z):
             "{:>8.3f}".format(z) + \
             "\n"
     return l
-
-arr = np.loadtxt('1rfo_21_renum.pdb',dtype='string')
+skip = xrange(-1,-2)
+arr = np.loadtxt('1rfo_21_renum.pdb',dtype='string',skiprows=:-2]
 loop = np.loadtxt('loop.pdb',dtype='string')
 lines = []
+print(arr.shape)
+
 for i in range(len(arr[:432,0])):
     atom     = arr[i,0]
     atomid   = int(arr[i,1])
     atomtype = arr[i,2]
     residue  = arr[i,3]
+    chain = arr[i,4]
     resnum   = int(arr[i,4])
     x        = float(arr[i,5])
     y        = float(arr[i,6])
