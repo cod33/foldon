@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # takes output of renum_orient and adds loop, formats, renumbers (again)
-
+#verified good shit 2.20.18
 import numpy as np
 import sys
 
@@ -28,24 +28,21 @@ def _format_line(atom, atomid, atomtype, residue, resnum, x,y,z):
             "{:>8.3f}".format(z) + \
             "\n"
     return l
-skip = xrange(-1,-2)
-arr = np.loadtxt('1rfo_21_renum.pdb',dtype='string',skiprows=:-2]
+
+arr = np.loadtxt('1rfo_oriented_clean.pdb',dtype='string')
 loop = np.loadtxt('loop.pdb',dtype='string')
 lines = []
-print(arr.shape)
-
 for i in range(len(arr[:432,0])):
     atom     = arr[i,0]
     atomid   = int(arr[i,1])
     atomtype = arr[i,2]
     residue  = arr[i,3]
-    chain = arr[i,4]
     resnum   = int(arr[i,4])
     x        = float(arr[i,5])
     y        = float(arr[i,6])
     z        = float(arr[i,7])
     lines.append(_format_line(atom,atomid,atomtype,residue,resnum,x,y,z))
-
+#good
 resnum = 28
 for i in range(len(loop)):
     atom     = loop[i,0]
@@ -61,13 +58,14 @@ for i in range(len(loop)):
     z        = float(loop[i,7])
     lines.append(_format_line(atom,atomid,atomtype,residue,resnum,x,y,z))
 
+#good
 resnum = 42
-for i in range(len(arr[432:863,0])):
+for i in range(len(arr[432:864,0])):
     atom     = arr[i+432,0]
-    atomid   = int(arr[i+432,1])+136
+    atomid   = int(arr[i+432,1])+137
     atomtype = arr[i+432,2]
     residue  = arr[i+432,3]
-    if arr[(i+432)-1,3] == arr[(i+432),3]:
+    if arr[(i+432)-1,4] == arr[(i+432),4]:
         pass
     else:
         resnum += 1
@@ -75,11 +73,11 @@ for i in range(len(arr[432:863,0])):
     y        = float(arr[i+432,6])
     z        = float(arr[i+432,7])
     lines.append(_format_line(atom,atomid,atomtype,residue,resnum,x,y,z))
-
-resnum = 69
+#good
+resnum = 70
 for i in range(len(loop)):
     atom     = loop[i,0]
-    atomid   = 1001+i
+    atomid   = 1002+i
     atomtype = loop[i,2]
     residue  = loop[i,3]
     if loop[i-1,3] == loop[i,3]:
@@ -90,13 +88,14 @@ for i in range(len(loop)):
     y        = float(loop[i,6])
     z        = float(loop[i,7])
     lines.append(_format_line(atom,atomid,atomtype,residue,resnum,x,y,z))
+#good
 resnum = 84
 for i in range(len(arr[864:,0])):
     atom     = arr[i+864,0]
-    atomid   = int(arr[i+863,1])+(136*2)
+    atomid   = int(arr[i+864,1])+((137*2))
     atomtype = arr[i+864,2]
     residue  = arr[i+864,3]
-    if arr[(i+864)-1,3] == arr[(i+864),3]:
+    if arr[(i+864)-1,4] == arr[(i+864),4]:
         pass
     else:
         resnum += 1
@@ -106,6 +105,6 @@ for i in range(len(arr[864:,0])):
     lines.append(_format_line(atom,atomid,atomtype,residue,resnum,x,y,z))
 
 
-with open('1rfo_21_looped.pdb', 'w+') as outfile:
+with open('1rfo_looped.pdb', 'w+') as outfile:
     for line in lines:
         outfile.write(line)

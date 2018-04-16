@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-#Corinn whatever it's june
+#Corinn whatever it's june 2017
+#Ali must have helped you with this cause you don't know what's happening (3.12.18)
 
 import numpy as np
 
@@ -12,6 +13,7 @@ AB = 0
 AC = 0
 BC = 0
 sigmas = []
+#sigmas represent equilibrium distances probably?
 for i in xrange(length):
     one = arr[i,0]
     two = arr[i,2]
